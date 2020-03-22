@@ -21,8 +21,6 @@ const mainController = {
       res.render("accueil", {
         figurines
       });
-
-      return res.send(figurines) ; 
       
     } catch (error) {
       console.trace(error); 
@@ -47,7 +45,6 @@ const mainController = {
         figurine.note = score.reduce((a, b) => a+b)/score.length; 
       }
       
-
       res.render("article", {
         figurine
       });
@@ -57,18 +54,12 @@ const mainController = {
     } catch (error) {
       console.trace(error); 
     }
-        
-        
-        
-      
-      
-  
-    
+
   }, 
 
-  showCategory: (req, res) => {
+  notFound: (req, res) => {
 
-
+    res.send(404); 
 
   }
   

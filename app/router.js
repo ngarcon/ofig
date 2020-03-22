@@ -4,24 +4,27 @@ const express = require('express');
 const mainController = require('./controllers/mainController');
 const cartController = require('./controllers/cartController');
 
+const cartMiddleware = require('./middlewares/cartMiddleware')
+
 
 const router = express.Router();
 
-// page d'accueil
+// Afficher la page d'accueil
 router.get('/', mainController.homePage);
 
-// page article
+// Page descriptif d'un article
 router.get('/article/:id', mainController.articlePage);
 
+// Afficher la page descrptif d'une article 
+router.get('/cart', cartMiddleware, cartController.cartPage);
 
-// page panier
-router.get('/cart', cartController.cartPage);
+// Ajout d'un élément au panier
+router.get('/cart/add/:id', cartMiddleware, cartController.addNewItem);
 
-// page panier
-router.get('/cart/add/:id', cartController.addNewItem);
+// Retrait d'un élément du panier
+router.get('/cart/delete/:id', cartMiddleware, cartController.deleteItem);
 
-// page panier
-router.get('/cart/delete/:id', cartController.deleteItem);
+
 
 // on exporte le router 
 module.exports = router;

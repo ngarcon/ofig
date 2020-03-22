@@ -1,0 +1,104 @@
+<%- include('partials/header') %>
+  <!-- Page Content -->
+  <div class="container container-main">
+
+      <div class="row">
+        <div class="col">
+          <h3 class="text-center">Votre Panier</h3>
+
+          <table class="table">
+            <thead>
+              <th>Article</th>
+              <th>Quantité</th>
+              <th>Prix HT</th>
+            </thead>
+            <tbody>
+              <% if (locals.cart) { %>
+                <% for(let figurine in cart ){ %>
+                  <tr>
+                    <td>
+                      <img class="img-thumbnail img-cart-list" src="/images/<%= cart[figurine].name.toLowerCase() %>.png" alt="">
+                      <div class="item-description">
+                          <h5 class="item-title"><%= cart[figurine].name %></h5>
+                          <p class="item-prize">$<%= cart[figurine].price %></p>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <strong><%= cart[figurine].quantity %></strong>
+                      <a href="/cart/add/<%= cart[figurine].id %>">+</a> / <a href="/cart/delete/<%= cart[figurine].id %>">-</a>
+                    </td>
+    
+                    <td>
+                      <p class="item-subtotal">$<%= cart[figurine].subTotal %></p>
+                    </td>
+                  </tr>
+                
+                <% } %>
+               
+              <% } else { %>
+                <tr>
+                  Votre Panier de contient pas d'article
+                </tr>
+              <% } %> 
+
+              <!-- Frais de port -->
+              <tr>
+                <td class="text-right" colspan="2">
+                  Frais de port
+                </td>
+                <td class="item-subtotal">
+                  $<%= cartData.deliveryFees %> 
+                </td>
+              </tr>
+
+              <tfoot>
+                <tr>
+                  <td class="text-right" colspan="2">
+                    Total HT
+                  </td>
+                  <td class="item-subtotal">
+                      $<%= cartData.totalTF %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-right" colspan="2">
+                    TVA 20%
+                  </td>
+                  <td class="item-subtotal">
+                      $<%= cartData.TVA %>
+                  </td>
+                </tr>
+
+                <tr class="row-total">
+                  <td class="text-right" colspan="2">
+                    Total TTC
+                  </td>
+                  <td class="item-total">
+                      $<%= cartData.totalWithTaxes %>
+                  </td>
+                </tr>
+
+              </tfoot>
+
+            </tbody>
+
+          </table>
+
+          <div class="row">
+            <div class="col text-right">
+                <div class="btn">
+                    <a href="/">Continuer mes achats</a>
+                </div>
+                <div class="btn btn-success">
+                  Passer Commande
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+  <%- include('partials/footer') %>
